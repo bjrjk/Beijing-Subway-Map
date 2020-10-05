@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>北京地铁线路图</title>
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+<div class="sw-wrap">
+    <div class="sw-nav">
+        <div class="sw-nav-top ">
+            <div class="autonavi-logo">
+                <a class="logo-img"></a>
+            </div>
+            <div class="sw-city">
+                <div class="city-list fl" style="display: none;">
+                    <a class="city select" href="javascript:void(0)" id="1100" cityname="beijing">北京</a>
+                </div>
+            </div>
+        </div><!-- sw-nav-top end -->
+        <div class="sw-nav-bottom sw-caption">
+            <div class="line-caption-box">
+                <div class="line-caption-list">
+                </div>
+            </div>
+        </div><!-- sw-nav-bottom end -->
+    </div><!-- sw-nav end -->
+    <div class="sw-map">
+        <div id="subway-content" >
+            <div id="sw-toolbar">
+                <div class="zoom-btn" id="sw-zoomin-btn"></div>
+                <div id="sw-zoom-track">
+                    <div id="sw-zoom-drag"></div>
+                </div>
+                <div class="zoom-btn" id="sw-zoomout-btn"></div>
+            </div>
+            <div id="subway"></div>
+            <div id="subway-query">
+                <p class="title">查询窗口</p>
+                <p>始发站：<input type="text" id="fromStation" /></p>
+                <p>终到站：<input type="text" id="toStation" /></p>
+                <p class="no-border-bottom"><input type="button" href="javascript:void(0)" id="query-btn" value="查询" /></p>
+            </div>
+        </div>
+        <div class="clr"></div>
+
+        <div id="tip-window">
+            <div class="line-name-box">
+                <span id="line-name-tip"></span>
+            </div>
+            <div class="line-name-arrow"></div>
+        </div>
+        <div class="loading-bg">
+            <div class="loading-outer">
+                <div class="loading">
+                    <img class="loading-img" src="./img/subway/loading.gif">
+                    <div class="loading-txt">正在加载，请稍候...</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="loading-bg-once">
+        <div class="loading-outer">
+            <div class="loading">
+                <img class="loading-img" src="./img/subway/loading.gif">
+                <div class="loading-txt">正在加载，请稍候...</div>
+            </div>
+        </div>
+    </div>
+</div><!-- sw-wrap end -->
+
+<script type="text/javascript" src="./js/lib/jquery.min.js"></script>
+<script type="text/javascript" src="./js/lib/jscrollpane.min.js"></script>
+<script type="text/javascript" src="./js/lib/mousewheel.js"></script>
+<script type="text/javascript" src="./js/lib/d3.v3.min.js"></script>
+<script type="text/javascript" src="./js/subway/basic.js"></script>
+<script type="text/javascript" src="./js/subway/common.js"></script>
+<script type="text/javascript" src="./js/subway/drw.js"></script>
+<script type="text/javascript" src="./js/subway/main.js"></script>
+<script type="text/javascript" src="./js/subway/dijkstra.js"></script>
+<script type="text/javascript">
+    SW.swInit();
+    SSSP.init();
+</script>
+</body>
+</html>
