@@ -9,9 +9,13 @@ with open("1100_drw_beijing.json", "r", encoding="utf-8") as f:
     dic = json.loads(f.read())
 
 subwayStationDict = {}
+subwayLineName2IDMapper = {}
+subwayLineIDCnter = 0
 
 for subwayLine in dic['l']:
     subwayLineName = subwayLine['ln']
+    subwayLineName2IDMapper[subwayLineName] = subwayLineIDCnter
+    subwayLineIDCnter += 1
     subwayStationDict[subwayLineName] = []
     print(subwayLine['ln'] + ": ", end="")
     for subwayStation in subwayLine['st']:
@@ -21,6 +25,7 @@ for subwayLine in dic['l']:
     print()
 
 print(subwayStationDict)
+print(subwayLineName2IDMapper)
 
 subwayEdgeList = []
 with open("1100_edge_beijing.txt", "r", encoding="utf-8") as f:
@@ -35,6 +40,7 @@ subwayStation2IDMapper = {}
 subwayID2StationMapper = []
 subwayStation2IDVisitedMapper = {}
 stationSize = 0
+subwayStationID2LineIDMapper = []
 
 for lineName in subwayStationDict.keys():
     for subwayStationName in subwayStationDict[lineName]:
@@ -42,10 +48,14 @@ for lineName in subwayStationDict.keys():
             subwayStation2IDMapper[subwayStationName] = stationSize
             subwayID2StationMapper.append(subwayStationName)
             subwayStation2IDVisitedMapper[subwayStationName] = False
+            subwayStationID2LineIDMapper.append([ subwayLineName2IDMapper[lineName] ])
             stationSize += 1
+        else:
+            subwayStationID2LineIDMapper[subwayStation2IDMapper[subwayStationName]].append(subwayLineName2IDMapper[lineName])
 
 print(stationSize)
 print(subwayStation2IDMapper)
+print(subwayStationID2LineIDMapper)
 
 for edge in subwayEdgeList:
     if edge[0] in subwayStation2IDMapper:
@@ -55,6 +65,7 @@ for edge in subwayEdgeList:
         print(edge[0] + "不在站点列表中！")
         subwayStation2IDMapper[edge[0]] = stationSize
         subwayID2StationMapper.append(edge[0])
+        subwayStationID2LineIDMapper.append([int(input("请输入站点对应的线路ID:"))])
         stationSize += 1
         edge[0] = subwayStation2IDMapper[edge[0]]
     if edge[1] in subwayStation2IDMapper:
@@ -64,6 +75,7 @@ for edge in subwayEdgeList:
         print(edge[1] + "不在站点列表中！")
         subwayStation2IDMapper[edge[1]] = stationSize
         subwayID2StationMapper.append(edge[1])
+        subwayStationID2LineIDMapper.append([int(input("请输入站点对应的线路ID:"))])
         stationSize += 1
         edge[1] = subwayStation2IDMapper[edge[1]]
 print(subwayEdgeList)
@@ -73,7 +85,7 @@ for subwayStationName in subwayStation2IDVisitedMapper.keys():
         print(subwayStationName + "没有边！")
 
 output = {"subwayStation2IDMapper": subwayStation2IDMapper, "subwayID2StationMapper": subwayID2StationMapper,
-          "subwayEdgeList": subwayEdgeList}
+          "subwayEdgeList": subwayEdgeList, "subwayLineName2IDMapper":subwayLineName2IDMapper, "subwayStationID2LineIDMapper":subwayStationID2LineIDMapper}
 print(output)
 
 with open("1100_dijkstra_beijing.json", "w") as f:

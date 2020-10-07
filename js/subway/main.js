@@ -170,10 +170,18 @@ var tip = {
         });
 
         $("#query-btn").click(function () {
+            d3.select("#svg-g").selectAll("text").attr("stroke","");
             var fromStationName = $("#fromStation").val();
             var toStationName = $("#toStation").val();
-
             console.log("Query Path from " + fromStationName + " to " + toStationName + ".");
+            SSSP.query(fromStationName, toStationName);
+        });
+
+        $("#clear-btn").click(function () {
+            d3.select("#svg-g").selectAll("text").attr("stroke","");
+            $("#query-info").text("");
+            $("#fromStation").val("");
+            $("#toStation").val("");
         });
 
         $(".line-caption-list").on("click", ".line-caption", function () {
@@ -258,6 +266,7 @@ var tip = {
         });
 
         $("#subway-content").on("mousedown", "#bg", function () {
+
             var subway_svg_out = document.getElementById('subway-svg');
             if (!tip.isHighlight) {
                 return;
