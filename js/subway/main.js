@@ -182,6 +182,7 @@ var tip = {
             $("#query-info").text("");
             $("#fromStation").val("");
             $("#toStation").val("");
+            SSSP.clearHighLightStationLine();
         });
 
         $(".line-caption-list").on("click", ".line-caption", function () {

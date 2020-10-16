@@ -5,6 +5,7 @@ var SSSP = {
     subwayEdge2DList: {},
     subwayLineName2IDMapper: null,
     subwayStationID2LineIDMapper: null,
+    resultCache: null,
 
     init: function () {
         $.ajax({
@@ -94,15 +95,17 @@ var SSSP = {
         };
     },
 
-    getTicketPrice: function(distance){
-        if(distance<=6000)return 3;
-        else if(distance<=12000)return 4;
-        else if(distance<=22000)return 5;
-        else if(distance<=32000)return 6;
-        else return 6+Math.ceil((distance-32000)/20000);
+    getTicketPrice: function (distance) {
+        if (distance <= 6000) return 3;
+        else if (distance <= 12000) return 4;
+        else if (distance <= 22000) return 5;
+        else if (distance <= 32000) return 6;
+        else return 6 + Math.ceil((distance - 32000) / 20000);
     },
 
     query: function (fromStationName, toStationName) {
+        SSSP.sendData(fromStationName, toStationName);
+        SSSP.clearHighLightStationLine();
         var fromStationID = SSSP.subwayStation2IDMapper[fromStationName];
         if (fromStationID === undefined) {
             alert("系统中不存在该始发站！");
@@ -127,7 +130,44 @@ var SSSP = {
         }
         result.dist = dist;
         console.log(result);
-        $("#query-info").text("从"+fromStationName+"到"+toStationName+"，里程"+dist.toString()+"米，票价"+SSSP.getTicketPrice(dist)+"元。");
+        SSSP.resultCache = result;
+        SSSP.drawHighLightStationLine();
+        $("#query-info").text("从" + fromStationName + "到" + toStationName + "，里程" + dist.toString() + "米，票价" + SSSP.getTicketPrice(dist) + "元。");
+    },
+
+    drawHighLightStationLine: function () {
+        var path = [];
+        var cachePath = SSSP.resultCache.path;
+        for (var i = 0; i < cachePath.length; i++) {
+            var stationNode = d3.select("#g-station").select("circle[name=" + cachePath[i] + "]");
+            if (stationNode[0][0] !== null) {
+                var X = stationNode.attr("cx");
+                var Y = stationNode.attr("cy");
+                path.push([X, Y]);
+            }
+        }
+        var lineFunction_line = d3.svg.line().interpolate("linear");
+        var select_line = d3.select("#g-line")
+            .append("path")
+            .attr("id", "highlighted-station-line")
+            .attr("name", "highlighted-station-line")
+            .attr("stroke", "#ff00ff")
+            .attr("d", lineFunction_line(path));
+    },
+
+    clearHighLightStationLine: function () {
+        d3.select("#highlighted-station-line").remove();
+    },
+
+    sendData: function (fromStationName, toStationName) {
+        $.ajax({
+            url: 'api/store.php',
+            type: "GET",
+            data: {
+                fromStation: fromStationName,
+                toStation: toStationName
+            }
+        });
     }
 
 }
