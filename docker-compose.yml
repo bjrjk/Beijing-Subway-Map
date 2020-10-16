@@ -1,0 +1,6 @@
+version: '2'
+services:
+  beijingsubwaymap:
+    build: .
+    ports:
+      - "7779:80"
