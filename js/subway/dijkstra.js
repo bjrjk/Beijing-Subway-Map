@@ -104,8 +104,6 @@ var SSSP = {
     },
 
     query: function (fromStationName, toStationName) {
-        SSSP.sendData(fromStationName, toStationName);
-        SSSP.clearHighLightStationLine();
         var fromStationID = SSSP.subwayStation2IDMapper[fromStationName];
         if (fromStationID === undefined) {
             alert("系统中不存在该始发站！");
@@ -116,6 +114,8 @@ var SSSP = {
             alert("系统中不存在该终到站！");
             return;
         }
+        SSSP.sendData(fromStationName, toStationName);
+        SSSP.clearHighLightStationLine();
         var result = SSSP.dijkstra(fromStationID, toStationID);
         var dist = 0;
         for (let i = 0; i < result.path.length; i++) {
