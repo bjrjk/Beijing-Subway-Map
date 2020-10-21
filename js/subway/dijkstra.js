@@ -84,14 +84,17 @@ var SSSP = {
             }
         }
         var path = [];
+        var pathID = [];
         var curStation = toStationID;
         while (curStation !== -1) {
             path.push(curStation);
+            pathID.push(curStation);
             curStation = prev[curStation];
         }
         return {
             dist: dis[toStationID],
-            path: path
+            path: path,
+            pathID: pathID
         };
     },
 
