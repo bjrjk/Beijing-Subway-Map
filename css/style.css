@@ -162,7 +162,7 @@ circle{cursor: pointer;}
 #sw-toolbar #sw-zoomout-btn{ bottom: 0;background-position:0 -81px;}
 #sw-toolbar #sw-zoom-track{ height: 36px; width: 2px;position: absolute; background:#E6E6E6; top:22px;left:9px;}
 #sw-toolbar #sw-zoom-track #sw-zoom-drag{width: 14px; height:4px;position:absolute;left:-6px;top:16px; background: #008CD6;_background:url(../img/subway/ie6_drag.jpg) no-repeat;}
-#subway-query {width: 200px; height: 200px; position: absolute; top: 250px; left: 10px; z-index: 998; background-color: #3798CB; text-align: center; border: 2px solid black;}
+#subway-query {width: 200px; height: 200px; position: absolute; top: 250px; left: 10px; z-index: 1100; background-color: #3798CB; text-align: center; border: 2px solid black;}
 #subway-query p {font-family: "黑体", serif; color: white; border-bottom: white solid 1px; margin-bottom: 10px;}
 #subway-query .title {margin-bottom: 20px;}
 #subway-query .no-border-bottom {border-bottom: unset;}
