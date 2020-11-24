@@ -25,7 +25,7 @@ circle{cursor: pointer;}
 .sw-wrap{width: 100%; height: 100%; position: relative; background: #EFF0F0;z-index: 1; }
 /*.sw-nav*/
 .sw-nav{height: 110px; width: 100%;position: absolute; top:0; left:0; background: #EFF0F0; z-index: 999; }
-.sw-nav .sw-nav-top{position: relative; height: 80px; width: 100%;min-width: 1000px; background: #FFF; margin:0 auto;}
+.sw-nav .sw-nav-top{position: relative; height: 80px; width: 100%;min-width: 1000px; background: #fff no-repeat; margin:0 auto;}
 .sw-nav .sw-nav-bottom{height: 30px;width: 100%; min-width: 1000px; background: #292728;}
 /*.sw-nav-top*/
 .sw-nav-top .autonavi-logo{ position: absolute;top: 21px; left:18px;}
